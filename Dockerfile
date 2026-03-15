@@ -14,6 +14,6 @@ RUN curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.noarmor.gpg | t
 COPY --from=openclaw / /
 
 # Entrypoint script
-RUN echo '#!/bin/bash\nset -e\ntailscaled --tun=userspace-networking &\nsleep 2\ntailscale up --authkey="$TAILSCALE_AUTH_KEY" --hostname="$TAILSCALE_HOSTNAME"\nexec openclaw gateway --port 18789' > /entrypoint.sh && chmod +x /entrypoint.sh
+RUN echo '#!/bin/bash\nset -e\ntailscaled --tun=userspace-networking &\nsleep 2\ntailscale up --authkey="$TAILSCALE_AUTH_KEY" --hostname="$TAILSCALE_HOSTNAME"\nexec openclaw gateway --port 18789 --allow-unconfigured' > /entrypoint.sh && chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
